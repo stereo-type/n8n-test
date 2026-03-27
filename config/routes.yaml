@@ -1,0 +1,11 @@
+controllers:
+    resource:
+        path: ../src/Core/UI/Controller/
+        namespace: App\Core\UI\Controller
+    type: attribute
+
+features_controllers:
+    resource:
+        path: ../src/Features/
+        namespace: App\Features
+    type: attribute
