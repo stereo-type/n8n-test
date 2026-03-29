@@ -8,6 +8,7 @@ use App\Features\Registration\Application\DTO\RegistrationDTO;
 use App\Features\Registration\Application\Exception\EmailAlreadyExistsException;
 use App\Features\Registration\Application\Service\RegistrationService;
 use App\Features\Registration\UI\Form\RegistrationFormType;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,7 @@ class RegistrationController extends AbstractController
 {
     public function __construct(
         private readonly RegistrationService $registrationService,
+        private readonly LoggerInterface $logger,
     ) {
     }
 
@@ -43,6 +45,12 @@ class RegistrationController extends AbstractController
                 return $this->redirectToRoute('app_register_success');
             } catch (EmailAlreadyExistsException) {
                 $this->addFlash('error', 'registration.email.already_exists');
+            } catch (\Throwable $e) {
+                $this->logger->error('Unexpected error during registration', [
+                    'email' => $dto->getEmail(),
+                    'exception' => $e->getMessage(),
+                ]);
+                $this->addFlash('error', 'registration.error.unexpected');
             }
         }
 

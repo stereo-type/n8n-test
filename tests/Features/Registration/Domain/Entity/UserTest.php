@@ -64,4 +64,39 @@ final class UserTest extends TestCase
 
         self::assertFalse($user->isActive());
     }
+
+    public function testSetPasswordAcceptsHashedPassword(): void
+    {
+        $user = new User();
+        // bcrypt / argon2 hashes always start with '$'
+        $hash = '$2y$13$abcdefghijklmnopqrstuuVGZzH3P2nFtsCu3bfcNPTwIH8DWdK5S';
+        $user->setPassword($hash);
+
+        self::assertSame($hash, $user->getPassword());
+    }
+
+    public function testSetPasswordRejectsPlainText(): void
+    {
+        $user = new User();
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $user->setPassword('short');
+    }
+
+    public function testSetIdAcceptsIntegerString(): void
+    {
+        $user = new User();
+        $user->setId('99');
+
+        self::assertSame(99, $user->getId());
+    }
+
+    public function testSetIdAcceptsInt(): void
+    {
+        $user = new User();
+        $user->setId(7);
+
+        self::assertSame(7, $user->getId());
+    }
 }

@@ -48,7 +48,7 @@ final class RegistrationServiceTest extends TestCase
             ->expects(self::once())
             ->method('hashPassword')
             ->with(self::isInstanceOf(User::class), 'Password1')
-            ->willReturn('hashed_password');
+            ->willReturn('$2y$13$abcdefghijklmnopqrstuuVGZzH3P2nFtsCu3bfcNPTwIH8DWdK5S');
 
         $this->userRepository
             ->expects(self::once())
@@ -65,7 +65,7 @@ final class RegistrationServiceTest extends TestCase
         self::assertSame('user@example.com', $user->getEmail());
         self::assertSame('Ivan', $user->getFirstName());
         self::assertSame('Ivanov', $user->getLastName());
-        self::assertSame('hashed_password', $user->getPassword());
+        self::assertSame('$2y$13$abcdefghijklmnopqrstuuVGZzH3P2nFtsCu3bfcNPTwIH8DWdK5S', $user->getPassword());
     }
 
     public function testRegisterThrowsWhenEmailAlreadyExists(): void
@@ -92,7 +92,7 @@ final class RegistrationServiceTest extends TestCase
         $dto = $this->buildDTO('user@example.com', 'Ivan', 'Ivanov', 'Password1');
 
         $this->userRepository->method('emailExists')->willReturn(false);
-        $this->passwordHasher->method('hashPassword')->willReturn('hashed');
+        $this->passwordHasher->method('hashPassword')->willReturn('$2y$13$abcdefghijklmnopqrstuuVGZzH3P2nFtsCu3bfcNPTwIH8DWdK5S');
         $this->userRepository->method('save');
         $this->logger->method('info');
 

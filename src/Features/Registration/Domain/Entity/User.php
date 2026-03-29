@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function setId(mixed $id): void
+    public function setId(int|string|null $id): void
     {
         if (null !== $id) {
             $this->id = (int) $id;
@@ -100,9 +100,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    /**
+     * Accepts only a pre-hashed password.
+     * Always hash via {@see UserPasswordHasherInterface::hashPassword()} before calling this method.
+     * Direct plain-text assignment is not allowed.
+     *
+     * @throws \InvalidArgumentException if a plain-text password is detected
+     */
+    public function setPassword(string $hashedPassword): self
     {
-        $this->password = $password;
+        if (!str_starts_with($hashedPassword, '$') && \strlen($hashedPassword) < 20) {
+            throw new \InvalidArgumentException(
+                'Refusing to store a potential plain-text password. Hash the password before calling setPassword().'
+            );
+        }
+
+        $this->password = $hashedPassword;
 
         return $this;
     }

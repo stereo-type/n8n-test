@@ -38,3 +38,6 @@ password:
 confirm_password:
     not_blank: 'Подтвердите пароль'
     mismatch: 'Пароли не совпадают'
+
+error:
+    unexpected: 'Произошла ошибка при регистрации. Пожалуйста, попробуйте позже.'
