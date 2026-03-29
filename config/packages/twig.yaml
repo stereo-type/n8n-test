@@ -1,0 +1,9 @@
+twig:
+    file_name_pattern: '*.twig'
+    paths:
+        '%kernel.project_dir%/src/Core/UI/Templates': Core
+        '%kernel.project_dir%/src/Features': Features
+
+when@test:
+    twig:
+        strict_variables: true

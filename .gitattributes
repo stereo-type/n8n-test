@@ -1,0 +1,11 @@
+* text=auto eol=lf
+*.php text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.twig text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.xml text eol=lf
+*.neon text eol=lf
+*.env text eol=lf
+bin/console text eol=lf
