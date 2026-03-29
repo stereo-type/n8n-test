@@ -3,6 +3,7 @@ twig:
     paths:
         '%kernel.project_dir%/src/Core/UI/Templates': Core
         '%kernel.project_dir%/src/Features': Features
+        '%kernel.project_dir%/src/Features/Registration/UI/Templates': Registration
 
 when@test:
     twig:
