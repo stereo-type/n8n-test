@@ -52,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function setId(int|string|null $id): void
+    public function setId(mixed $id): void
     {
         if (null !== $id) {
             $this->id = (int) $id;

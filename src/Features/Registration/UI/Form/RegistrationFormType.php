@@ -51,6 +51,10 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'registration.password.too_short',
                         'max' => 4096,
                     ]),
+                    new Assert\Regex([
+                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/',
+                        'message' => 'registration.password.weak',
+                    ]),
                 ],
             ]);
     }
