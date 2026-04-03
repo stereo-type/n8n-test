@@ -1,0 +1,10 @@
+{% extends '@Core/web/base.html.twig' %}
+
+{% block title %}{{ 'registration.success_page_title'|trans({}, 'registration') }}{% endblock %}
+
+{% block content %}
+<div class="registration-success">
+    <h1>{{ 'registration.success_heading'|trans({}, 'registration') }}</h1>
+    <p>{{ 'registration.success_message'|trans({}, 'registration') }}</p>
+</div>
+{% endblock %}
