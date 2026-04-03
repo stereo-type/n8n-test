@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class RegistrationFormType extends AbstractType
 {
@@ -43,6 +44,14 @@ class RegistrationFormType extends AbstractType
                 ],
                 'mapped' => false,
                 'invalid_message' => 'registration.confirm_password.mismatch',
+                'constraints' => [
+                    new Assert\NotBlank(['message' => 'registration.password.not_blank']),
+                    new Assert\Length([
+                        'min' => 8,
+                        'minMessage' => 'registration.password.too_short',
+                        'max' => 4096,
+                    ]),
+                ],
             ]);
     }
 
